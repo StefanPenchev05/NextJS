@@ -1,6 +1,17 @@
+'use client';
 import Link from "next/link";
 
 export default function Home() {
+
+  async function testPrismaConnection(){
+    try{
+      const res = await fetch("/api/testPrisma");
+      alert("Connection is Ok");
+    }catch(err){
+      alert("Sorry but the connection is not establish. Error: " + err);
+    }
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="container flex flex-col items-center justify-center space-y-40">
@@ -29,6 +40,9 @@ export default function Home() {
           <p className="text-orange-400 text-4xl pb-2 border-b border-orange-300">
             <Link href="/register">Register</Link>
           </p>
+          <button onClick={testPrismaConnection} className="text-orange-400 text-4xl pb-2 border-b border-orange-300">
+            Test Prisma Connection
+          </button>
         </div>
       </div>
     </main>
