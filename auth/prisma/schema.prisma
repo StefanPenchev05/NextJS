@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  username  String   @unique
+  createAt  DateTime @default(now())
+
+  avatar   Avatar? @relation(fields: [avatarId], references: [id])
+  avatarId Int?    @unique
+
+  security   Security @relation(fields: [securityId], references: [id])
+  securityId Int      @unique
+}
+
+model Avatar {
+  id        Int      @id
+  avatarURL String   @unique
+  type      String
+  size      Int
+  public    Boolean  @default(true)
+  createAt  DateTime @default(now())
+
+  user User?
+}
+
+model Security {
+  id                Int     @id
+  twoFactorAuth     Boolean @default(false)
+  twoFactorAuthCode String?
+
+  user User?
+}
+
+model TempData{
+  id Int @unique
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  username  String   @unique
+  iamgeURL String?
+}
