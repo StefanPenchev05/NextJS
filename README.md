@@ -51,7 +51,7 @@ The Auth project focuses on creating authentication pages using Prisma as the da
 
 5. Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to see the application.
 
-## Needs to finished the lastest project
+#### Needs to finished the lastest project
 
 #### Resources
 
