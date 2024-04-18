@@ -1,27 +1,2 @@
-.tooltip{
-    position: relative;
-}
 
-.tooltip > svg {
-  display: inline-block;
-  cursor: pointer;
-}
-
-.tooltip-data{
-    position: absolute;
-
-    background-color: grey;
-    border-radius: 8px;
-    padding: 4px;
-    margin: 10px 0 0 0 ;
-
-    top: 100%;
-    right: -50%;
-    z-index: 0;
-    visibility: hidden;
-}
-
-.tooltip:hover .tooltip-data{
-    visibility: visible;
-}
 

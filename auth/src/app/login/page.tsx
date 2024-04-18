@@ -2,13 +2,17 @@ import React from "react";
 import Link from "next/link";
 import "./style.css";
 
+
+import Tooltip from "services/components/Tooltip";
+import TextInput from "services/components/TextInput";
+
 function page() {
   return (
     <div className=" flex flex-col justify-between space-y-6 bg-[#222229] rounded-xl w-1/3 h-1/2 p-8">
       <div className="space-y-2 w-full">
-        <div className="flex justify-between">
-          <Link href="/">
-            <div className="tooltip">
+        <div className="flex items-center">
+          <Link href="/" className="grow">
+            <Tooltip text="Home">
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white"
                 aria-hidden="true"
@@ -25,17 +29,21 @@ function page() {
                   clipRule="evenodd"
                 />
               </svg>
-              <span className="tooltip-data">Home</span>
-            </div>
+            </Tooltip>
           </Link>
-
-          <p className="text-4xl font-bold italic text-orange-500">Log In</p>
+          <p className="text-4xl font-bold italic text-orange-500 grow">Log In</p>
         </div>
         <hr />
       </div>
       <div className="space-y-4">
-        <input id="input" type="email" placeholder="Enter your email" />
-        <input id="input" type="password" placeholder="Enter your password" />
+        <TextInput
+          type="email"
+          placeholder="Enter your Email"
+        />
+        <TextInput
+          type="password"
+          placeholder="Enter your Password"
+        />
       </div>
     </div>
   );

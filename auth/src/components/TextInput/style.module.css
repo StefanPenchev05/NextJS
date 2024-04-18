@@ -1,0 +1,39 @@
+/* Animation for sliding in the title */
+@keyframes slideIn {
+    0% {
+        left: 5%;
+        bottom: 0;
+    }
+    100% {
+        bottom: 75%;
+        left: 5%;
+    }
+}
+
+/* Container for the input and title */
+.textInputDiv {
+    position: relative;
+}
+
+/* Styles for the input field */
+.textInput {
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 8px;
+    color: white;
+    height: 20px;
+    outline: none;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+/* Styles for the title */
+.textInputTitle {
+    background-color: #222229;
+    animation: slideIn 0.2s ease-out;
+    bottom: 75%;
+    font-size:medium;
+    font-weight: 500;
+    left: 5%;
+    position: absolute;
+}
