@@ -2,13 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
   @apply bg-base-100;
   @apply text-white;
+  @apply flex h-screen flex-col justify-center items-center;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  #input{
+    position: relative;
+    border-radius: 8px;
+    outline: none;
+    padding: 1.5rem;
+    color: black;
+    width: 100%;
+    height: 20px;
+  }
+
+  #input::placeholder{
+    color: black;
   }
 }

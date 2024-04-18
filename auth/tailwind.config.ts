@@ -23,6 +23,7 @@ const config: Config = {
         success: "#14ff53",
         warning: "#f5ae00",
         error: "#f9003f",
+        darkCyan: "#008b8b"
       },
     },
   },
