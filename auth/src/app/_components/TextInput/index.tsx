@@ -22,7 +22,9 @@ const TextInput: React.FC<TextInput> = ({ setValue, value = '', ...rest }) => {
   }
   
   const handleOnBlur = () => {
-    setOnFocus(false);
+    if(!value){
+      setOnFocus(false);
+    }
     setPlaceholder(rest.placeholder);
   }
 
