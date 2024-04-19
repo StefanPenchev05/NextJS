@@ -25,7 +25,7 @@ const Form: React.FC<FormPropr> = ({ children, ...rest }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit the data. Please try again.");
+        throw new Error(response.status.toString());
       }
 
       const data = await response.json();

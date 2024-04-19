@@ -11,6 +11,21 @@ import Form from "services/app/_components/Form";
 export default function page() {
   const [email, setEmail] = useState<string | undefined>(undefined);
 
+  function onErrorForm(error: any){
+    const statusCode = error && error.message;
+    switch(statusCode){
+      case "400":
+        console.log("Invalid Email");
+        break;
+      case "404":
+        console.log("User not found")
+        break;
+      default: 
+        console.log("Server Error")
+        break;
+    }
+  }
+
   return (
     <div className=" flex flex-col space-y-6 bg-[#222229] rounded-xl w-1/3 h-1/2 p-8">
       <div className="space-y-2 w-full">
@@ -45,7 +60,7 @@ export default function page() {
         api="api/checkEmail"
         buttonPlaceholder="Sign Up"
         buttonStyle="rounded-lg"
-        onError={(err) => console.log(err)}
+        onError={onErrorForm}
         onSuccess={(data) => console.log(data)}
       >
         <TextInput
