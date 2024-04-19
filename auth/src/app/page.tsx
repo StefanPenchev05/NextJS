@@ -39,10 +39,10 @@ export default function Home() {
       </div>
       <div className="flex space-x-40">
         <p className="text-orange-400 text-4xl pb-2 border-b border-orange-300">
-          <Link href="/login">Login</Link>
+          <Link href="auth/login">Login</Link>
         </p>
         <p className="text-orange-400 text-4xl pb-2 border-b border-orange-300">
-          <Link href="/register">Register</Link>
+          <Link href="auth/register">Register</Link>
         </p>
         <button
           onClick={testPrismaConnection}

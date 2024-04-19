@@ -1,12 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import "./style.css";
 
-
-import Tooltip from "services/components/Tooltip";
-import TextInput from "services/components/TextInput";
+import Tooltip from "services/app/_components/Tooltip";
+import TextInput from "services/app/_components/TextInput";
 
 function page() {
+
+  const [email, setEmail] = useState<string | undefined>(undefined);
+
   return (
     <div className=" flex flex-col justify-between space-y-6 bg-[#222229] rounded-xl w-1/3 h-1/2 p-8">
       <div className="space-y-2 w-full">
@@ -31,19 +35,14 @@ function page() {
               </svg>
             </Tooltip>
           </Link>
-          <p className="text-4xl font-bold italic text-orange-500 grow">Log In</p>
+          <p className="text-4xl font-bold italic text-orange-500 grow">
+            Log In
+          </p>
         </div>
         <hr />
       </div>
       <div className="space-y-4">
-        <TextInput
-          type="email"
-          placeholder="Enter your Email"
-        />
-        <TextInput
-          type="password"
-          placeholder="Enter your Password"
-        />
+        <TextInput type="email" placeholder="Enter your Email" value={email} setValue={setEmail}/>
       </div>
     </div>
   );

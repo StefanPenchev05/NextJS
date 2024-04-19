@@ -27,6 +27,10 @@
     width: 100%;
 }
 
+.textInput:focus {
+    border: 2px solid #87CEEB;
+}
+
 /* Styles for the title */
 .textInputTitle {
     background-color: #222229;
@@ -36,4 +40,6 @@
     font-weight: 500;
     left: 5%;
     position: absolute;
+    padding: 0 4px 0 4px;
+    text-align: center;
 }

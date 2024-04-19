@@ -1,0 +1,23 @@
+@keyframes glow{
+    0%{
+        background-color: #B026FF;
+    } 
+    100%{
+        background-color: #603FEF;
+    }
+}
+
+.submitButton{
+    width: 100%;
+    height: auto;
+    padding: 16px;
+    text-align: center;
+    font-size: medium;
+    font-weight: 500;
+    background-color: #B026FF;
+    color: white;
+}
+
+.submitButton:hover{
+    animation: glow 0.3s ease-in;
+}

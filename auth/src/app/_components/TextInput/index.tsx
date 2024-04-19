@@ -5,11 +5,13 @@ import style from "./style.module.css";
 type TextInput = {
   type: string;
   placeholder: string;
+  value:string | undefined;
+  setValue: (value: string) => void;
   inputStyle?: string;
   inputTitleStyle?: string;
 };
 
-const TextInput: React.FC<TextInput> = ({ ...rest }) => {
+const TextInput: React.FC<TextInput> = ({ setValue, ...rest }) => {
   const [onFocus, setOnFocus] = useState<boolean>(false);
   const [placeholder, setPlaceholder] = useState<string | undefined>(rest.placeholder);
 
@@ -36,6 +38,8 @@ const TextInput: React.FC<TextInput> = ({ ...rest }) => {
         className={style.textInput}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
+        onChange={(e) => setValue(e.target.value)}
+        value={rest.value}
       />
       {onFocus && (
         <span className={style.textInputTitle}>
