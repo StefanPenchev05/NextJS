@@ -4,6 +4,7 @@ import style from "./style.module.css";
 
 type TextInput = {
   type: string;
+  name: string;
   placeholder: string;
   value:string | undefined;
   setValue: (value: string) => void;
@@ -11,7 +12,7 @@ type TextInput = {
   inputTitleStyle?: string;
 };
 
-const TextInput: React.FC<TextInput> = ({ setValue, ...rest }) => {
+const TextInput: React.FC<TextInput> = ({ setValue, value = '', ...rest }) => {
   const [onFocus, setOnFocus] = useState<boolean>(false);
   const [placeholder, setPlaceholder] = useState<string | undefined>(rest.placeholder);
 
@@ -33,13 +34,14 @@ const TextInput: React.FC<TextInput> = ({ setValue, ...rest }) => {
     <div className={style.textInputDiv}>
       <input
         id="input"
+        name={rest.name}
         type={rest.type}
         placeholder={placeholder}
         className={style.textInput}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         onChange={(e) => setValue(e.target.value)}
-        value={rest.value}
+        value={value}
       />
       {onFocus && (
         <span className={style.textInputTitle}>

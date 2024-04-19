@@ -6,13 +6,13 @@ import "./style.css";
 
 import Tooltip from "services/app/_components/Tooltip";
 import TextInput from "services/app/_components/TextInput";
+import Form from "services/app/_components/Form";
 
-function page() {
-
+export default function page() {
   const [email, setEmail] = useState<string | undefined>(undefined);
 
   return (
-    <div className=" flex flex-col justify-between space-y-6 bg-[#222229] rounded-xl w-1/3 h-1/2 p-8">
+    <div className=" flex flex-col space-y-6 bg-[#222229] rounded-xl w-1/3 h-1/2 p-8">
       <div className="space-y-2 w-full">
         <div className="flex items-center">
           <Link href="/" className="grow">
@@ -41,11 +41,21 @@ function page() {
         </div>
         <hr />
       </div>
-      <div className="space-y-4">
-        <TextInput type="email" placeholder="Enter your Email" value={email} setValue={setEmail}/>
-      </div>
+      <Form
+        api="api/checkEmail"
+        buttonPlaceholder="Sign Up"
+        buttonStyle="rounded-lg"
+        onError={(err) => console.log(err)}
+        onSuccess={(data) => console.log(data)}
+      >
+        <TextInput
+          type="email"
+          name="email"
+          placeholder="Enter your Email"
+          value={email}
+          setValue={setEmail}
+        />
+      </Form>
     </div>
   );
 }
-
-export default page;

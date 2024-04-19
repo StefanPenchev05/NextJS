@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import prisma from "./_lib/db";
 
 export default function Home() {
   async function testPrismaConnection() {

@@ -5,7 +5,7 @@ type SubmitButtonProps = {
     className?:string
 }
 
-const index: React.FC<SubmitButtonProps> = ({...rest}) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({...rest}) => {
   return (
     <button type='submit' className={`${style.submitButton} ${rest.className}`}>
         {rest.placeholder}
@@ -13,4 +13,4 @@ const index: React.FC<SubmitButtonProps> = ({...rest}) => {
   )
 }
 
-export default index
+export default SubmitButton
