@@ -17,7 +17,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       { status: 200 }
     );
   } catch (error) {
-    let message = "Server error";
     let status = 500;
     if (Object.values(error as object).includes("NotFoundError")) {
       status = 404;

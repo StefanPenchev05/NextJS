@@ -7,24 +7,47 @@ import "./style.css";
 import Tooltip from "services/app/_components/Tooltip";
 import TextInput from "services/app/_components/TextInput";
 import Form from "services/app/_components/Form";
+import CheckBox from "services/app/_components/CheckBox";
 
 export default function page() {
   const [email, setEmail] = useState<string | undefined>(undefined);
   const [emailError, setEmailError] = useState<string | undefined>(undefined);
+  const [password, setPasssord] = useState<string | undefined>(undefined);
+  const [passwordError, setPasswordError] = useState<string | undefined>(
+    undefined
+  );
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
+  const [apiEndPoint, setApiEndPoint] = useState<"checkEmail" | "login">(
+    "checkEmail"
+  );
 
-  function onErrorForm(error: any){
-    const statusCode = error && error.message;
-    switch(statusCode){
-      case "400":
-        setEmailError("Invalid Email");
-        break;
-      case "404":
-        console.log("User not found")
-        break;
-      default: 
-        console.log("Server Error")
-        break;
+  function onErrorForm(error: unknown) {
+    let statusCode = "500";
+    if (error && Object.prototype.hasOwnProperty.call(error, "message")) {
+      statusCode = (error as { message: string }).message;
     }
+    if (apiEndPoint === "checkEmail") {
+      switch (statusCode) {
+        case "400":
+          setEmailError("Invalid Email");
+          break;
+        case "404":
+          setEmailError("User not found");
+          break;
+        default:
+          console.log("Server Error");
+          break;
+      }
+    } else {
+      switch (statusCode) {
+        default:
+          console.log("Server Erorr");
+      }
+    }
+  }
+
+  function onSuccessForm(data: unknown) {
+    setApiEndPoint("login");
   }
 
   return (
@@ -58,11 +81,11 @@ export default function page() {
         <hr />
       </div>
       <Form
-        api="api/checkEmail"
+        api={`api/${apiEndPoint}`}
         buttonPlaceholder="Sign Up"
         buttonStyle="rounded-lg"
         onError={onErrorForm}
-        onSuccess={(data) => console.log(data)}
+        onSuccess={onSuccessForm}
       >
         <TextInput
           type="email"
@@ -74,6 +97,29 @@ export default function page() {
           setValue={setEmail}
         />
 
+        {apiEndPoint === "login" && (
+          <TextInput
+            type="password"
+            name="password"
+            error={passwordError}
+            clearError={() => setPasswordError(undefined)}
+            placeholder="Password"
+            value={password}
+            setValue={setPasssord}
+          />
+        )}
+
+        <div className="w-full flex justify-between items-center h-auto">
+          <CheckBox
+            option="Remember Me"
+            checked={rememberMe}
+            setCheck={setRememberMe}
+            labelClassName="text-base"
+            inputClassName="w-8 h-8"
+            className="w-1/2"
+          />
+          <p className="text-base underline text-[#603FEF] cursor-pointer">Forgot Password?</p>
+        </div>
       </Form>
     </div>
   );
