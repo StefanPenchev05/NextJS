@@ -1,13 +1,8 @@
 import React from "react";
 import style from "./styles.module.css";
+import { type Tooltip } from "services/types/UIComponent";
 
-type TooltipProp = {
-  children: React.ReactNode;
-  text: string;
-  className?: string;
-};
-
-const Tooltip: React.FC<TooltipProp> = ({ className, ...rest }) => (
+const Tooltip: React.FC<Tooltip> = ({ className, ...rest }) => (
   <div className={style.tooltip}>
     {rest.children}
     <span className={`${style.tooltiptext} ${className}`}>{rest.text}</span>

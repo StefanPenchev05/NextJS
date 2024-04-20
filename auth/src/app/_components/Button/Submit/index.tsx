@@ -1,11 +1,7 @@
 import style from './style.module.css'
+import { type SubmitButton } from 'services/types/UIComponent'
 
-type SubmitButtonProps = {
-    placeholder: string;
-    className?:string
-}
-
-const SubmitButton: React.FC<SubmitButtonProps> = ({...rest}) => {
+const SubmitButton: React.FC<SubmitButton> = ({...rest}) => {
   return (
     <button type='submit' className={`${style.submitButton} ${rest.className}`}>
         {rest.placeholder}

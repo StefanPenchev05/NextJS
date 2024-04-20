@@ -1,18 +1,10 @@
 import { FormEvent } from "react";
 import SubmitButton from "../Button/Submit";
-
-type FormPropr = {
-  children: React.ReactNode;
-  onError: <T>(error: T) => void;
-  onSuccess: <T>(data: T | undefined) => void;
-  api: string;
-  buttonStyle?: string;
-  buttonPlaceholder: string;
-};
+import { type Form } from "services/types/UIComponent";
 
 const METHOD = "POST";
 
-const Form: React.FC<FormPropr> = ({ children, ...rest }) => {
+const Form: React.FC<Form> = ({ children, ...rest }) => {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 

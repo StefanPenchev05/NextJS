@@ -10,12 +10,13 @@ import Form from "services/app/_components/Form";
 
 export default function page() {
   const [email, setEmail] = useState<string | undefined>(undefined);
+  const [emailError, setEmailError] = useState<string | undefined>(undefined);
 
   function onErrorForm(error: any){
     const statusCode = error && error.message;
     switch(statusCode){
       case "400":
-        console.log("Invalid Email");
+        setEmailError("Invalid Email");
         break;
       case "404":
         console.log("User not found")
@@ -66,10 +67,13 @@ export default function page() {
         <TextInput
           type="email"
           name="email"
-          placeholder="Enter your Email"
+          error={emailError}
+          clearError={() => setEmailError(undefined)}
+          placeholder="Email"
           value={email}
           setValue={setEmail}
         />
+
       </Form>
     </div>
   );

@@ -1,45 +1,67 @@
 /* Animation for sliding in the title */
 @keyframes slideIn {
-    0% {
-        left: 5%;
-        bottom: 0;
-    }
-    100% {
-        bottom: 75%;
-        left: 5%;
-    }
+  0% {
+    left: 4%;
+    bottom: 0;
+  }
+  100% {
+    bottom: 75%;
+    left: 4%;
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    bottom: 75%;
+    left: 4%;
+  }
+  100% {
+    left: 4%;
+    color: gray;
+    bottom: 40%;
+  }
 }
 
 /* Container for the input and title */
 .textInputDiv {
-    position: relative;
+  position: relative;
 }
 
 /* Styles for the input field */
 .textInput {
-    background: transparent;
-    border: 2px solid white;
-    border-radius: 8px;
-    color: white;
-    height: 20px;
-    outline: none;
-    padding: 1.5rem;
-    width: 100%;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 8px;
+  color: white;
+  height: 20px;
+  outline: none;
+  padding: 1.5rem;
+  width: 100%;
 }
 
+.textInput::placeholder{
+    color: white;
+}
+
+
 .textInput:focus {
-    border: 2px solid #87CEEB;
+  border: 2px solid #87ceeb;
 }
 
 /* Styles for the title */
 .textInputTitle {
-    background-color: #222229;
-    animation: slideIn 0.2s ease-out;
-    bottom: 75%;
-    font-size:medium;
-    font-weight: 500;
-    left: 5%;
-    position: absolute;
-    padding: 0 4px 0 4px;
-    text-align: center;
+  background-color: #222229;
+  animation: slideIn 0.2s ease-out;
+  bottom: 75%;
+  font-size: medium;
+  font-weight: 500;
+  left: 4%;
+  position: absolute;
+  padding: 0 4px 0 4px;
+  text-align: center;
+}
+
+.textInput:not(:focus) + .textInputTitle:not(.hasValue) {
+  animation: slideOut 0.1s ease-out;
+  bottom: 30%;
 }
