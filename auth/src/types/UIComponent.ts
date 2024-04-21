@@ -20,6 +20,7 @@ export type Form = {
   children: React.ReactNode;
   onError: <T>(error: T) => void;
   onSuccess: <T>(data: T | undefined) => void;
+  whenSubmit: () => void;
   api: string;
   buttonStyle?: string;
   buttonPlaceholder: string;

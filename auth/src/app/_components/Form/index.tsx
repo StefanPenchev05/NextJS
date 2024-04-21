@@ -8,6 +8,8 @@ const Form: React.FC<Form> = ({ children, ...rest }) => {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    rest.whenSubmit();
+
     const formData = new FormData(event.currentTarget);
 
     try {

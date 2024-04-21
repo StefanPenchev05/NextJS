@@ -90,6 +90,10 @@ export default function page() {
         buttonStyle="rounded-lg"
         onError={onErrorForm}
         onSuccess={onSuccessForm}
+        whenSubmit={() => {
+          setEmailError(undefined);
+          setPasssord(undefined);
+        }}
       >
         <TextInput
           type="email"
