@@ -47,7 +47,11 @@ export default function page() {
   }
 
   function onSuccessForm(data: unknown) {
-    setApiEndPoint("login");
+    if(apiEndPoint === "checkEmail"){
+      setApiEndPoint("login");
+    }else{
+      console.log(data);
+    }
   }
 
   return (
@@ -112,6 +116,7 @@ export default function page() {
         <div className="w-full flex justify-between items-center h-auto">
           <CheckBox
             option="Remember Me"
+            name="rememberMe"
             checked={rememberMe}
             setCheck={setRememberMe}
             labelClassName="text-base"

@@ -6,7 +6,7 @@ const CheckBox: React.FC<CheckBox> = ({inputClassName, labelClassName,...rest}) 
             <input
                 id="checkBox"
                 type="checkbox"
-                name={rest.option}
+                name={rest.name}
                 onClick={() => rest.setCheck(!!rest.checked)}
                 className={inputClassName}
             />

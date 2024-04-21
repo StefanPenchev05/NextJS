@@ -17,12 +17,14 @@ const Form: React.FC<Form> = ({ children, ...rest }) => {
       });
 
       if (!response.ok) {
+        console.log(response)
         throw new Error(response.status.toString());
       }
 
       const data = await response.json();
       rest.onSuccess(data);
     } catch (error) {
+      console.log(error);
       rest.onError(error);
     }
   }

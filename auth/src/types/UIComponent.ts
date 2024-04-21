@@ -32,6 +32,7 @@ export type SubmitButton = {
 
 export type CheckBox = {
   option: string;
+  name: string;
   checked: boolean;
   setCheck: (checked: boolean) => void;
   inputClassName?: string;
