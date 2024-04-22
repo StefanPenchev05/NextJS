@@ -17,7 +17,7 @@ import { toObject } from "services/app/_lib/toObject";
 export default function page() {
   const [email, setEmail] = useState<string | undefined>(undefined);
   const [emailError, setEmailError] = useState<string | undefined>(undefined);
-  const [password, setPasssord] = useState<string | undefined>(undefined);
+  const [password, setPassword] = useState<string | undefined>(undefined);
   const [passwordError, setPasswordError] = useState<string | undefined>(
     undefined
   );
@@ -61,7 +61,7 @@ export default function page() {
 
   function beforeSubmit(data: FormData): boolean {
     setEmailError(undefined);
-    setPasssord(undefined);
+    setPasswordError(undefined);
 
     let validation;
     if (apiEndPoint === "checkEmail") {
@@ -77,6 +77,16 @@ export default function page() {
 
     } else {
       validation = loginSchema.safeParse(toObject(data));
+      if(!validation.success){
+        const errors = validation.error.errors;
+        for(let error of errors){
+          if(error.path[0] === "password"){
+            setPasswordError(error.message);
+            break;
+          }
+        }
+        return false;
+      }
     }
     return true;
   }
@@ -137,7 +147,7 @@ export default function page() {
             clearError={() => setPasswordError(undefined)}
             placeholder="Password"
             value={password}
-            setValue={setPasssord}
+            setValue={setPassword}
           />
         )}
 
