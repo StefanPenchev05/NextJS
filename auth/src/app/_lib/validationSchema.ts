@@ -1,12 +1,29 @@
-import z from "zod"
+import z from "zod";
 
-export const checkEmailSchema = z.string().email("Invalid Email").min(7).max(255).trim().toLowerCase();
+declare global {
+  interface String {
+    isNullOrEmpty(): boolean;
+  }
+}
+
+String.prototype.isNullOrEmpty = function (): boolean {
+  return this === null || this.trim() === "";
+};
+
+export const checkEmailSchema = z
+  .string()
+  .trim()
+  .toLowerCase()
+  .email()
+  .refine((value) => !value.isNullOrEmpty(), "Email is required");
 
 export const loginSchema = z.object({
-    email: z.string().email("Invalid Email").min(7).max(255).trim().toLowerCase(),
-    password: z.string().min(8).max(255).refine(value => /[!@#$%^&*(),.?":{}|<>]/g.test(value), 
-    {
-        message: "Password must contain at least one special character"
+  password: z
+    .string()
+    .min(8)
+    .max(255)
+    .refine((value) => /[!@#$%^&*(),.?":{}|<>]/g.test(value), {
+      message: "Password must contain at least one special character",
     }),
-    rememberMe: z.boolean().nullable().optional()
+  rememberMe: z.boolean().nullable().optional(),
 });

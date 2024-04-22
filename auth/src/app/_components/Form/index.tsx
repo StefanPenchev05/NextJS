@@ -17,6 +17,8 @@ const Form: React.FC<Form> = ({ children, ...rest }) => {
         return;
       }
 
+      console.log("API CALL")
+
       const response: Response = await fetch(rest.api, {
         method: METHOD,
         body: formData,

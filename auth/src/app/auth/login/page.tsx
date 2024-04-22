@@ -8,7 +8,11 @@ import Tooltip from "services/app/_components/Tooltip";
 import TextInput from "services/app/_components/TextInput";
 import Form from "services/app/_components/Form";
 import CheckBox from "services/app/_components/CheckBox";
-import { loginSchema } from "services/app/_lib/validationSchema";
+import {
+  checkEmailSchema,
+  loginSchema,
+} from "services/app/_lib/validationSchema";
+import { toObject } from "services/app/_lib/toObject";
 
 export default function page() {
   const [email, setEmail] = useState<string | undefined>(undefined);
@@ -48,29 +52,31 @@ export default function page() {
   }
 
   function onSuccessForm(data: unknown) {
-    if(apiEndPoint === "checkEmail"){
+    if (apiEndPoint === "checkEmail") {
       setApiEndPoint("login");
-    }else{
+    } else {
       console.log(data);
     }
   }
 
-  function beforeSubmit(data: FormData): boolean{
+  function beforeSubmit(data: FormData): boolean {
     setEmailError(undefined);
     setPasssord(undefined);
 
-    const validation = loginSchema.safeParse(data);
-    if(!validation.success){
-      console.log(validation.error.errors);
-      const errors = validation.error.errors;
-      errors.forEach(error => {
-        console.log(error.path);
-        console.log(typeof error.path);
-        if(error.path[0] === 'email'){
+    let validation;
+    if (apiEndPoint === "checkEmail") {
+      const email = data.get("email");
+      validation = checkEmailSchema.safeParse(email);
+      if(!validation.success){
+        const emailError = validation.error.errors;
+        emailError.forEach(error => {
           setEmailError(error.message);
-        }
-      });
-      return false;
+        })
+        return false;
+      }
+
+    } else {
+      validation = loginSchema.safeParse(toObject(data));
     }
     return true;
   }
@@ -145,7 +151,9 @@ export default function page() {
             inputClassName="w-8 h-8"
             className="w-1/2"
           />
-          <p className="text-base underline text-[#603FEF] cursor-pointer">Forgot Password?</p>
+          <p className="text-base underline text-[#603FEF] cursor-pointer">
+            Forgot Password?
+          </p>
         </div>
       </Form>
     </div>
