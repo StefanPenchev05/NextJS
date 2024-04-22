@@ -8,11 +8,14 @@ import Tooltip from "services/app/_components/Tooltip";
 import TextInput from "services/app/_components/TextInput";
 import Form from "services/app/_components/Form";
 import CheckBox from "services/app/_components/CheckBox";
+
+import { toObject } from "services/app/_lib/toObject";
 import {
   checkEmailSchema,
   loginSchema,
 } from "services/app/_lib/validationSchema";
-import { toObject } from "services/app/_lib/toObject";
+import { useAppDispatch } from "services/app/hooks/useAppDispatch.hook";
+import { createAlert } from "services/actions/alert";
 
 export default function page() {
   const [email, setEmail] = useState<string | undefined>(undefined);
@@ -25,6 +28,8 @@ export default function page() {
   const [apiEndPoint, setApiEndPoint] = useState<"checkEmail" | "login">(
     "checkEmail"
   );
+
+  const dispatch = useAppDispatch();
 
   function onErrorForm(error: unknown) {
     let statusCode: string = "500";
@@ -40,11 +45,22 @@ export default function page() {
           setEmailError("User not found");
           break;
         default:
-          console.log("Server Error");
+          dispatch(
+            createAlert({
+              show: true,
+              message: "Server Error, try this again later",
+              type: "error",
+              horizontalPosition: "left",
+              verticalPosition: "bottom",
+              duration: 3000,
+            })
+          );
           break;
       }
     } else {
       switch (statusCode) {
+        case "401":
+          setPasswordError("Incorrect password");
         default:
           console.log("Server Erorr");
       }
@@ -67,20 +83,19 @@ export default function page() {
     if (apiEndPoint === "checkEmail") {
       const email = data.get("email");
       validation = checkEmailSchema.safeParse(email);
-      if(!validation.success){
+      if (!validation.success) {
         const emailError = validation.error.errors;
-        emailError.forEach(error => {
+        emailError.forEach((error) => {
           setEmailError(error.message);
-        })
+        });
         return false;
       }
-
     } else {
       validation = loginSchema.safeParse(toObject(data));
-      if(!validation.success){
+      if (!validation.success) {
         const errors = validation.error.errors;
-        for(let error of errors){
-          if(error.path[0] === "password"){
+        for (let error of errors) {
+          if (error.path[0] === "password") {
             setPasswordError(error.message);
             break;
           }

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { StrictMode } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Provider } from "react-redux";
+import { store } from "services/stores/store";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <StrictMode>{children}</StrictMode>
+        <Provider store={store}>
+          <StrictMode>{children}</StrictMode>
+        </Provider>
       </body>
     </html>
   );
