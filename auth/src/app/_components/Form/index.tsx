@@ -1,6 +1,7 @@
 import { FormEvent } from "react";
 import SubmitButton from "../Button/Submit";
 import { type Form } from "services/types/UIComponent";
+import { ApiError } from "services/app/_lib/errors";
 
 const METHOD = "POST";
 
@@ -8,19 +9,22 @@ const Form: React.FC<Form> = ({ children, ...rest }) => {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    rest.whenSubmit();
-
-    const formData = new FormData(event.currentTarget);
-
     try {
+
+      const formData = new FormData(event.currentTarget);
+
+      if(!rest.beforeSubmit(formData)){
+        return;
+      }
+
       const response: Response = await fetch(rest.api, {
         method: METHOD,
         body: formData,
       });
 
       if (!response.ok) {
-        console.log(response)
-        throw new Error(response.status.toString());
+        const { message } = await response.json();
+        throw new ApiError(response.status.toString(), message);
       }
 
       const data = await response.json();

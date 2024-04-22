@@ -8,6 +8,7 @@ import Tooltip from "services/app/_components/Tooltip";
 import TextInput from "services/app/_components/TextInput";
 import Form from "services/app/_components/Form";
 import CheckBox from "services/app/_components/CheckBox";
+import { loginSchema } from "services/app/_lib/validationSchema";
 
 export default function page() {
   const [email, setEmail] = useState<string | undefined>(undefined);
@@ -22,9 +23,9 @@ export default function page() {
   );
 
   function onErrorForm(error: unknown) {
-    let statusCode = "500";
+    let statusCode: string = "500";
     if (error && Object.prototype.hasOwnProperty.call(error, "message")) {
-      statusCode = (error as { message: string }).message;
+      statusCode = (error as { status: string }).status;
     }
     if (apiEndPoint === "checkEmail") {
       switch (statusCode) {
@@ -52,6 +53,26 @@ export default function page() {
     }else{
       console.log(data);
     }
+  }
+
+  function beforeSubmit(data: FormData): boolean{
+    setEmailError(undefined);
+    setPasssord(undefined);
+
+    const validation = loginSchema.safeParse(data);
+    if(!validation.success){
+      console.log(validation.error.errors);
+      const errors = validation.error.errors;
+      errors.forEach(error => {
+        console.log(error.path);
+        console.log(typeof error.path);
+        if(error.path[0] === 'email'){
+          setEmailError(error.message);
+        }
+      });
+      return false;
+    }
+    return true;
   }
 
   return (
@@ -90,10 +111,7 @@ export default function page() {
         buttonStyle="rounded-lg"
         onError={onErrorForm}
         onSuccess={onSuccessForm}
-        whenSubmit={() => {
-          setEmailError(undefined);
-          setPasssord(undefined);
-        }}
+        beforeSubmit={beforeSubmit}
       >
         <TextInput
           type="email"

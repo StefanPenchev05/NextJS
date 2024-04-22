@@ -8,5 +8,5 @@ export const loginSchema = z.object({
     {
         message: "Password must contain at least one special character"
     }),
-    rememberMe: z.boolean().optional()
+    rememberMe: z.boolean().nullable().optional()
 });

@@ -13,7 +13,7 @@ export async function POST(req: NextRequest){
     if(!validation.success){
         const errorMessage = validation.error.message;
         console.log(errorMessage);
-        return NextResponse.json({errorMessage}, {status: 400})
+        return NextResponse.json({message: errorMessage}, {status: 400})
     }
 
     const record = await prisma.user.findFirst({where: {email}});
