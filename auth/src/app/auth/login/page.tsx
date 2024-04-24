@@ -15,7 +15,7 @@ import {
   loginSchema,
 } from "services/app/_lib/validationSchema";
 import { useAppDispatch } from "services/app/hooks/useAppDispatch.hook";
-import { createAlert } from "services/actions/alert";
+import { createAlert } from "services/redux/actions/alert";
 
 export default function page() {
   const [email, setEmail] = useState<string | undefined>(undefined);

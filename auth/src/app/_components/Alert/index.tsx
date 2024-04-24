@@ -1,3 +1,4 @@
+"use client"
 import { useAppSelector } from "services/app/hooks/useAppSelector.hook";
 import { RxCross2 } from "react-icons/rx";
 import { GoAlert, GoCheckCircle } from "react-icons/go";
@@ -5,7 +6,7 @@ import { GoAlert, GoCheckCircle } from "react-icons/go";
 
 
 const Alert: React.FC = () => {
-  const alert = useAppSelector((state) => state.alert);
+  const alert = useAppSelector(state => state.alert);
 
   const verticalPosition: string = {
     bottom: "bottom-0",
