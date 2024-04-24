@@ -3,7 +3,7 @@ import { type PayloadAction } from "@reduxjs/toolkit";
 
 interface IAlert {
   show: boolean;
-  type: "error" | "warning" | "success" | undefined;
+  type: "error" | "warning" | "success";
   verticalPosition: "bottom" | "top" | "center";
   horizontalPosition: "left" | "right" ;
   duration: number;
@@ -13,7 +13,7 @@ interface IAlert {
 const initialState: IAlert = {
   show: false,
   message: undefined,
-  type: undefined,
+  type: "error",
   verticalPosition: "bottom",
   horizontalPosition: "left",
   duration: 0,

@@ -1,7 +1,7 @@
 "use client";
 import { RxCross2 } from "react-icons/rx";
 import { GoAlert, GoCheckCircle } from "react-icons/go";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { useAppSelector } from "services/app/hooks/useAppSelector.hook";
 import { useAppDispatch } from "services/app/hooks/useAppDispatch.hook";
@@ -23,10 +23,38 @@ const Alert: React.FC = () => {
   }[alert.horizontalPosition];
 
   const alertIcon = {
-    error: <RxCross2 />,
-    warning: <GoAlert />,
-    success: <GoCheckCircle />,
+    error: <RxCross2 className="w-6 h-6 bg-red-500 rounded-full" />,
+    warning: <GoAlert className="w-6 h-6 object-cover bg-yellow-500 rounded-full"/>,
+    success: <GoCheckCircle className="w-6 h-6 bg-green-500 rounded-full"/>,
   }[alert.type || "warning"];
+
+  const alertBackgroundColor = {
+    error: "bg-red-300",
+    warning: "bg-yellow-300",
+    success: "bg-green-300",
+  }[alert.type];
+
+  const alertTitleColor = {
+    error: "text-red-500",
+    warning: "text-yellow-500",
+    success: "text-green-500",
+  }[alert.type];
+
+  const borderColor = {
+    error: "border-red-600",
+    warning: "border-yellow-600",
+    success: "border-green-600",
+  }[alert.type];
+
+
+  function toFirstLetterCapital(text: string) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
+  function onClose(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
+    e.preventDefault();
+    dispatch(clearAlert());
+  }
 
   useEffect(() => {
     if (alert.show) {
@@ -40,10 +68,20 @@ const Alert: React.FC = () => {
     <>
       {alert.show && (
         <div
-          className={`flex absolute ${verticalPosition} ${horizontalPosition} shadow-xl`}
+          className={`absolute p-4 border-b-2 ${borderColor} ${alertBackgroundColor} ${verticalPosition} ${horizontalPosition}`}
         >
-          {alertIcon}
-          <span>{alert.message}</span>
+          <div className="flex relative items-center">
+            <div className="mr-4">{alertIcon}</div>
+            <div className="text-gray-500">
+              <p className={`${alertTitleColor} font-semibold`}>
+                {toFirstLetterCapital(alert.type)}
+              </p>
+              <p>{alert.message}</p>
+            </div>
+            <button className="absolute top-[-25px] right-[-25px] bg-white rounded-full p-2" onClick={onClose}>
+              <RxCross2 className="text-red-500"/>
+            </button>
+          </div>
         </div>
       )}
     </>

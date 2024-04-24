@@ -30,7 +30,6 @@ const Form: React.FC<Form> = ({ children, ...rest }) => {
       const data = await response.json();
       rest.onSuccess(data);
     } catch (error) {
-      console.log(error);
       rest.onError(error);
     }
   }

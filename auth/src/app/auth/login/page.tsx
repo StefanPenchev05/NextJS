@@ -52,7 +52,7 @@ export default function page() {
               type: "error",
               horizontalPosition: "left",
               verticalPosition: "bottom",
-              duration: 3000,
+              duration: 5000,
             })
           );
           break;
@@ -69,7 +69,7 @@ export default function page() {
               type: "error",
               horizontalPosition: "left",
               verticalPosition: "bottom",
-              duration: 3000,
+              duration: 5000,
             })
           );
       }
