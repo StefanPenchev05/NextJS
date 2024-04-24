@@ -7,6 +7,8 @@ import { useAppSelector } from "services/app/hooks/useAppSelector.hook";
 import { useAppDispatch } from "services/app/hooks/useAppDispatch.hook";
 import { clearAlert } from "services/redux/actions/alert";
 
+import style from './style.module.css'
+
 const Alert: React.FC = () => {
   const alert = useAppSelector((state) => state.alert);
   const dispatch = useAppDispatch();
@@ -22,30 +24,42 @@ const Alert: React.FC = () => {
     left: "left-0",
   }[alert.horizontalPosition];
 
+  const verticalAnimation: string = {
+    bottom: "slideInFromBottom 3s",
+    top: "slideInFromTop 3s",
+    center: "",
+  }[alert.verticalPosition];
+  
+  const horizontalAnimation: string = {
+    right: "slideInFromRight 3s",
+    left: "slideInFromLeft 3s",
+  }[alert.horizontalPosition];
+
   const alertIcon = {
     error: <RxCross2 className="w-6 h-6 bg-red-500 rounded-full" />,
     warning: <GoAlert className="w-6 h-6 object-cover bg-yellow-500 rounded-full"/>,
     success: <GoCheckCircle className="w-6 h-6 bg-green-500 rounded-full"/>,
   }[alert.type || "warning"];
 
-  const alertBackgroundColor = {
-    error: "bg-red-300",
-    warning: "bg-yellow-300",
-    success: "bg-green-300",
-  }[alert.type];
+  const alertStyles = {
+    error: {
+      backgroundColor: "bg-red-300",
+      titleColor: "text-red-500",
+      borderColor: "border-red-600",
+    },
+    warning: {
+      backgroundColor: "bg-yellow-300",
+      titleColor: "text-yellow-500",
+      borderColor: "border-yellow-600",
+    },
+    success: {
+      backgroundColor: "bg-green-300",
+      titleColor: "text-green-500",
+      borderColor: "border-green-600",
+    },
+  };
 
-  const alertTitleColor = {
-    error: "text-red-500",
-    warning: "text-yellow-500",
-    success: "text-green-500",
-  }[alert.type];
-
-  const borderColor = {
-    error: "border-red-600",
-    warning: "border-yellow-600",
-    success: "border-green-600",
-  }[alert.type];
-
+  const { backgroundColor, titleColor, borderColor } = alertStyles[alert.type];
 
   function toFirstLetterCapital(text: string) {
     return text.charAt(0).toUpperCase() + text.slice(1);
@@ -68,12 +82,14 @@ const Alert: React.FC = () => {
     <>
       {alert.show && (
         <div
-          className={`absolute p-4 border-b-2 ${borderColor} ${alertBackgroundColor} ${verticalPosition} ${horizontalPosition}`}
+          id="alert"
+          className={`absolute p-4 border-b-2 ${borderColor} ${backgroundColor} ${verticalPosition} ${horizontalPosition}`}
+          style={{animation: `${verticalAnimation}, ${horizontalAnimation}`}}
         >
           <div className="flex relative items-center">
             <div className="mr-4">{alertIcon}</div>
             <div className="text-gray-500">
-              <p className={`${alertTitleColor} font-semibold`}>
+              <p className={`${titleColor} font-semibold`}>
                 {toFirstLetterCapital(alert.type)}
               </p>
               <p>{alert.message}</p>
