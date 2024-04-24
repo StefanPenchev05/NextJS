@@ -62,7 +62,16 @@ export default function page() {
         case "401":
           setPasswordError("Incorrect password");
         default:
-          console.log("Server Erorr");
+          dispatch(
+            createAlert({
+              show: true,
+              message: "Server Error, try this again later",
+              type: "error",
+              horizontalPosition: "left",
+              verticalPosition: "bottom",
+              duration: 3000,
+            })
+          );
       }
     }
   }
