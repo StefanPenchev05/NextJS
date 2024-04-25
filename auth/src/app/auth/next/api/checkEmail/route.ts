@@ -19,7 +19,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   } catch (error) {
     let status = 500;
     if (Object.values(error as object).includes("NotFoundError")) {
-      status = 500;
+      status = 404;
     }
     return NextResponse.json({ success: false }, { status: status });
   }

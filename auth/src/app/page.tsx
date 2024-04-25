@@ -39,18 +39,58 @@ export default function Home() {
         </div>
       </div>
       <div className="flex space-x-40">
-        <p className="text-orange-400 text-4xl pb-2 border-b border-orange-300">
-          <Link href="auth/login">Login</Link>
-        </p>
-        <p className="text-orange-400 text-4xl pb-2 border-b border-orange-300">
-          <Link href="auth/register">Register</Link>
-        </p>
-        <button
-          onClick={testPrismaConnection}
-          className="text-orange-400 text-4xl pb-2 border-b border-orange-300"
-        >
-          Test Prisma Connection
-        </button>
+        <div className="p-6 space-y-6 bg-gray-800 rounded-lg shadow-lg">
+          <div className="flex items-center space-x-4">
+            <p className="text-white text-4xl bg-gray-700 p-2 rounded-lg">
+              Next Auth
+            </p>
+            <p className="text-orange-400 text-2xl pb-2 border-b-2 border-orange-300">
+              <Link
+                href="auth/next/login"
+                className="hover:text-orange-500 transition duration-200"
+              >
+                Login
+              </Link>
+            </p>
+            <p className="text-orange-400 text-2xl pb-2 border-b-2 border-orange-300">
+              <Link
+                href="auth/next/register"
+                className="hover:text-orange-500 transition duration-200"
+              >
+                Register
+              </Link>
+            </p>
+          </div>
+          <div className="flex items-center space-x-4">
+            <p className="text-white text-4xl bg-gray-700 p-2 rounded-lg">
+              Customized Auth
+            </p>
+            <p className="text-orange-400 text-2xl pb-2 border-b-2 border-orange-300">
+              <Link
+                href="auth/custom/login"
+                className="hover:text-orange-500 transition duration-200"
+              >
+                Login
+              </Link>
+            </p>
+            <p className="text-orange-400 text-2xl pb-2 border-b-2 border-orange-300">
+              <Link
+                href="auth/custom/register"
+                className="hover:text-orange-500 transition duration-200"
+              >
+                Register
+              </Link>
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center">
+          <button
+            onClick={testPrismaConnection}
+            className="text-orange-400 text-4xl pb-2 border-b border-orange-300"
+          >
+            Test Prisma Connection
+          </button>
+        </div>
       </div>
     </div>
   );
